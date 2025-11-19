@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Vesting Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Investor Vesting Dashboard</h1>
+            <p class="subtitle">Track your token vesting schedule and claim your allocations</p>
+        </header>
+
+        <div class="notification" id="notification"></div>
+
+        <div class="wallet-section">
+            <div class="wallet-info">
+                <span class="network-badge">BSC Testnet</span>
+                <div>
+                    <strong>Address:</strong>
+                    <span id="walletAddress">Not Connected</span>
+                </div>
+            </div>
+            <button id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div id="tierName" class="tier-badge">-</div>
+                <div class="stat-label">Your Tier</div>
+                <div class="stat-value" id="totalAllocation">0 VTK</div>
+                <div class="stat-subvalue">Total Allocation</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Vested Amount</div>
+                <div class="stat-value" id="vestedAmount">0 VTK</div>
+                <div class="stat-subvalue">Currently unlocked</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Released Amount</div>
+                <div class="stat-value" id="releasedAmount">0 VTK</div>
+                <div class="stat-subvalue">Already claimed</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Claimable Now</div>
+                <div class="stat-value" id="claimableAmount">0 VTK</div>
+                <div class="stat-subvalue">Ready to claim</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-container">
+                <div class="progress-header">
+                    <h2>Vesting Progress</h2>
+                    <strong id="progressPercent">0%</strong>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="vestingChart" height="100"></canvas>
+        </div>
+
+        <div class="vesting-schedule">
+            <h2>Unlock Schedule</h2>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Date</th>
+                        <th>Percentage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleBody">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">Connect wallet to view your schedule</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="claim-section">
+            <h2>Claim Your Tokens</h2>
+            <div class="claim-info">
+                <p>Available to Claim</p>
+                <div class="claim-amount" id="claimableDisplay">0</div>
+                <p class="stat-subvalue">VTK Tokens</p>
+            </div>
+            <button id="claimBtn" onclick="claimTokens()" disabled>Claim Tokens</button>
+            <button id="tgeBtn" onclick="claimTGE()" class="secondary" style="display: none; margin-left: 10px;">Claim TGE Tokens</button>
+        </div>
+
+        <div id="noVestingMessage" style="display: none; text-align: center; padding: 40px;">
+            <h2>No Vesting Allocation Found</h2>
+            <p>This address is not registered as an investor.</p>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
